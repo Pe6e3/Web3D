@@ -2,34 +2,34 @@ using UnityEngine;
 
 public class BalloonController : MonoBehaviour
 {
+    private Rigidbody rb;
     public float movementSpeed = 5000f; // Скорость движения шара
     public float liftForce = 12000f; // Сила подъема шара
     public float rotationSpeed = 2f; // Скорость поворота шара
-    public AudioSource audioSource; // Ссылка на звук полета шара
     public float verticalTilt;
     public float forceUpWhenFall = 0.4f;
     public float groundRaycastDistance = 0.2f;
-    public bool isGrounded = false;
+    public static bool isGrounded = false;
     public Joystick joystick;
     public float maxSpeed = 10f;
 
-    private Rigidbody rb;
+
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
         LimitSpeed();
 
-        // Воспроизведение звука, если объект не касается земли
-        if (!isGrounded && !audioSource.isPlaying)
-            audioSource.Play();
-        if (isGrounded && audioSource.isPlaying)
-            audioSource.Stop();
+    
+
+      
+
+
 
         // Относительный угол наклона относительно вертикальной оси (ось X)
         verticalTilt = Mathf.Abs(transform.rotation.eulerAngles.x);
@@ -103,4 +103,7 @@ public class BalloonController : MonoBehaviour
             rb.velocity = horizontalVelocity.normalized * clampedSpeed;
         }
     }
+
+
+
 }
