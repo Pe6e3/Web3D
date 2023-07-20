@@ -28,6 +28,8 @@ public class BalloonController : MonoBehaviour
         // Воспроизведение звука, если объект не касается земли
         if (!isGrounded && !audioSource.isPlaying)
             audioSource.Play();
+        if (isGrounded && audioSource.isPlaying)
+            audioSource.Stop();
 
         // Относительный угол наклона относительно вертикальной оси (ось X)
         verticalTilt = Mathf.Abs(transform.rotation.eulerAngles.x);
