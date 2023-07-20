@@ -6,8 +6,9 @@ public class BallSoundController : MonoBehaviour
 {
     public float heightFromGround; // Высота шара от земли
     public AudioSource audioSource; // Ссылка на звук полета шара
-    public float minHeigh = 0.5f;
+    public float minHeigh = 0f;
     public float maxHeigh = 5f;
+    public float maxSoundLevel = 0.5f;
 
 
     void Start()
@@ -29,6 +30,7 @@ public class BallSoundController : MonoBehaviour
 
         // Установка громкости аудио исходя из высоты шара
         float normalizedHeight = Mathf.InverseLerp(minHeigh, maxHeigh, heightFromGround);
+        normalizedHeight = normalizedHeight < maxSoundLevel ? normalizedHeight : maxSoundLevel;
         audioSource.volume = normalizedHeight;
     }
 }

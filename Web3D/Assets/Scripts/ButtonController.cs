@@ -9,6 +9,9 @@ public class ButtonController : MonoBehaviour
     public bool isCollided = false;
     public Vector3 originalPosition;
 
+    public string url = "http://185.246.67.169:36013/category/economics";
+
+
     public AudioSource audioSource; // Компонент для воспроизведения звука
 
     void Start()
@@ -38,6 +41,8 @@ public class ButtonController : MonoBehaviour
             // Воспроизводим звук при нажатии на кнопку
             if (audioSource != null && audioSource.clip != null)
                 audioSource.Play();
+
+            Application.OpenURL(url);
         }
     }
 
