@@ -877,6 +877,8 @@ MonoBehaviour:
   rotationSpeed: 2
   verticalTilt: 0
   forceUpWhenFall: 0.2
+  groundRaycastDistance: 0.2
+  isGrounded: 0
 --- !u!65 &1238000018
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1234,7 +1236,7 @@ GameObject:
   - component: {fileID: 1742952588}
   m_Layer: 0
   m_Name: "\u041A\u043D\u043E\u043F\u043A\u0438"
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
