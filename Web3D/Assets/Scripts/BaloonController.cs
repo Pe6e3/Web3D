@@ -5,33 +5,44 @@ public class BalloonController : MonoBehaviour
     public float movementSpeed = 5000f; // Скорость движения шара
     public float liftForce = 12000f; // Сила подъема шара
     public float rotationSpeed = 2f; // Скорость поворота шара
+    public AudioSource audioSource; // Ссылка на звук полета шара
     public float verticalTilt;
     public float forceUpWhenFall = 0.4f;
     public float groundRaycastDistance = 0.2f;
     public bool isGrounded = false;
     public Joystick joystick;
+    public float maxSpeed = 10f;
 
     private Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
+        LimitSpeed();
+
+        // Воспроизведение звука, если объект не касается земли
+        if (!isGrounded && !audioSource.isPlaying)
+            audioSource.Play();
+
         // Относительный угол наклона относительно вертикальной оси (ось X)
         verticalTilt = Mathf.Abs(transform.rotation.eulerAngles.x);
 
         // Обработка движения вперед и назад (W и S)
-        //float verticalInput = Input.GetAxis("Vertical");
-        float verticalInput = joystick.Vertical;
+        float verticalInputKey = Input.GetAxis("Vertical");
+        float verticalInputJoy = joystick.Vertical;
+        float verticalInput = verticalInputKey + verticalInputJoy;
         Vector3 forwardMovement = transform.forward * verticalInput * movementSpeed * Time.deltaTime;
         rb.AddForce(forwardMovement);
 
         // Обработка движения влево и вправо (A и D)
-        //float horizontalInput = Input.GetAxis("Horizontal");
-        float horizontalInput = joystick.Horizontal;
+        float horizontalInputKey = Input.GetAxis("Horizontal");
+        float horizontalInputJoy = joystick.Horizontal;
+        float horizontalInput = horizontalInputKey + horizontalInputJoy;
         Vector3 sideMovement = transform.right * horizontalInput * movementSpeed * Time.deltaTime;
         rb.AddForce(sideMovement);
 
@@ -75,5 +86,19 @@ public class BalloonController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Button"))
             isGrounded = false;
+    }
+
+    // Ограничение скорости объекта
+    private void LimitSpeed()
+    {
+        Vector3 horizontalVelocity = rb.velocity;
+        horizontalVelocity.y = 0f; // Игнорируем вертикальную компоненту скорости
+        float currentSpeed = horizontalVelocity.magnitude;
+
+        if (currentSpeed > maxSpeed)
+        {
+            float clampedSpeed = Mathf.Clamp(currentSpeed, 0f, maxSpeed);
+            rb.velocity = horizontalVelocity.normalized * clampedSpeed;
+        }
     }
 }
