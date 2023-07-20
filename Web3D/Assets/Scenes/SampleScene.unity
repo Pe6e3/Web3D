@@ -234,7 +234,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: -13.04
+=======
+      value: 8.97594
+>>>>>>> parent of b8de07c (test)
 =======
       value: 8.97594
 >>>>>>> parent of b8de07c (test)
@@ -248,7 +252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: -0.8404598
+=======
+      value: -0.008848105
+>>>>>>> parent of b8de07c (test)
 =======
       value: -0.008848105
 >>>>>>> parent of b8de07c (test)
