@@ -9,6 +9,7 @@ public class BalloonController : MonoBehaviour
     public float forceUpWhenFall = 0.4f;
     public float groundRaycastDistance = 0.2f;
     public bool isGrounded = false;
+    public Joystick joystick;
 
     private Rigidbody rb;
 
@@ -23,12 +24,14 @@ public class BalloonController : MonoBehaviour
         verticalTilt = Mathf.Abs(transform.rotation.eulerAngles.x);
 
         // Обработка движения вперед и назад (W и S)
-        float verticalInput = Input.GetAxis("Vertical");
+        //float verticalInput = Input.GetAxis("Vertical");
+        float verticalInput = joystick.Vertical;
         Vector3 forwardMovement = transform.forward * verticalInput * movementSpeed * Time.deltaTime;
         rb.AddForce(forwardMovement);
 
         // Обработка движения влево и вправо (A и D)
-        float horizontalInput = Input.GetAxis("Horizontal");
+        //float horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = joystick.Horizontal;
         Vector3 sideMovement = transform.right * horizontalInput * movementSpeed * Time.deltaTime;
         rb.AddForce(sideMovement);
 
